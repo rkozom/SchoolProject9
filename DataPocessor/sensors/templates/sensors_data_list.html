@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="{% static "bootstrap.min.css" %}" rel="stylesheet">
+
+    <title>Измерения</title>
+    <style type="text/css">
+        body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: ghostwhite;
+            }
+        .table {
+            width: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Измерения с датчиков</h1>
+    <p>Всего измерений: <b>{{ total_count }}</b></p>
+
+    <h3>Измерения за последний 30 секунд:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Время измерения</th>
+                <th scope="col">Температура, &deg;C</th>
+                <th scope="col">Влажность, %</th>
+                <th scope="col">Датчик</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in chart_data %}
+            <tr>
+                <th scope="row">{{ m.measurement_time|date:"Y-m-d H:i:s"}}</th>
+                <td>{{m.temperature}}</td>
+                <td>{{ m.humidity }}</td>
+                <td>{{ m.sensor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{% static "bootstrap.bundle.min.js" %}"></script>
+</body>
+
+</html>
